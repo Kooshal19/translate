@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Translate</title>
+</head>
+<body>
+
+<h1>Translate Text</h1>
+
+<p id="inputText"></p>
+<p>Translated Text:</p>
+<div id="translatedText"></div>
+
+<!-- Google Translate Element -->
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'mfe'}, 'google_translate_element');
+}
+
+// Get the input text from the URL parameters
+const urlParams = new URLSearchParams(window.location.search);
+const inputText = urlParams.get('input');
+
+// Set the input text on the page
+document.getElementById("inputText").innerHTML = inputText;
+
+// Translate the text and send it back to the app
+function sendTranslationToApp() {
+  var translated = document.getElementById("translatedText").innerText;
+  window.AppInventor.setWebViewString(translated); // Send the translation back to MIT App Inventor
+}
+
+window.onload = function() {
+  googleTranslateElementInit();
+  setTimeout(sendTranslationToApp, 3000); // Wait for translation and send it back
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
